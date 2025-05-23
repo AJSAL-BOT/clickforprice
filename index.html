@@ -30,7 +30,7 @@
     .ad-box {
       background: #222;
       border: 3px dashed yellow;
-      padding: 60px;
+      padding: 20px;
       border-radius: 10px;
       font-size: 18px;
       margin: 20px 0;
@@ -73,7 +73,9 @@
     <p style="color: #ccc;">(Click once anywhere inside the box below)</p>
 
     <div class="ad-box" id="adArea">
-      🔸 [ This is your Ad — Click here to continue ] 🔸
+      <!-- Your ad script -->
+      <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
+      <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
     </div>
 
     <div id="countdown"></div>
@@ -91,7 +93,7 @@
     adArea.addEventListener('click', () => {
       if (clicked) return;
       clicked = true;
-      adArea.style.pointerEvents = 'none'; // Prevent more clicks
+      adArea.style.pointerEvents = 'none'; // disable further clicks
       message.textContent = "⏳ Ad clicked! Please wait 20 seconds...";
       let time = 20;
       countdown.textContent = `⏱ ${time}s`;
