@@ -74,11 +74,12 @@
     <h1>🔐 Please wait for the ad to load and click it to continue</h1>
     <p style="color: #ccc;">Ad is loading... Please wait</p>
 
-    <!-- AD WRAPPER: hidden by default -->
+    <!-- AD WRAPPER (Hidden by default) -->
     <div id="adWrapper">
       <div class="ad-box" id="adArea">
-        <!-- Your Ad Code -->
-        <div id="adScriptContainer"></div>
+        <!-- ProfitablerateCPM Ad -->
+        <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
+        <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
       </div>
     </div>
 
@@ -88,36 +89,19 @@
   </div>
 
   <script>
-    // Insert ad script dynamically and wait for iframe to load
-    const adScriptContainer = document.getElementById('adScriptContainer');
     const adWrapper = document.getElementById('adWrapper');
+    const adContainerId = 'container-efa186d0dc7575a8f0e319dcffebcfc4';
 
-    // Setup ad variables
-    const adOptions = {
-      key: '12bb67d075c3fc49bb50ec9aa63842e6',
-      format: 'iframe',
-      height: 90,
-      width: 728,
-      params: {}
-    };
-
-    // Inject ad script
-    const script = document.createElement('script');
-    script.src = "//www.highperformanceformat.com/12bb67d075c3fc49bb50ec9aa63842e6/invoke.js";
-    script.type = "text/javascript";
-    script.async = true;
-    adScriptContainer.appendChild(script);
-
-    // Wait for iframe to appear
-    const waitForIframe = setInterval(() => {
-      const iframe = adScriptContainer.querySelector('iframe');
+    // Check if ad iframe appears inside container
+    const waitForAdIframe = setInterval(() => {
+      const adContainer = document.getElementById(adContainerId);
+      const iframe = adContainer?.querySelector('iframe');
       if (iframe) {
-        clearInterval(waitForIframe);
+        clearInterval(waitForAdIframe);
         adWrapper.style.display = "block";
       }
     }, 500);
 
-    // Unlock system
     let clicked = false;
     const adArea = document.getElementById('adArea');
     const countdown = document.getElementById('countdown');
@@ -128,8 +112,8 @@
       if (clicked) return;
       clicked = true;
       adArea.style.pointerEvents = 'none';
-      message.textContent = "⏳ Ad clicked! Please wait 20 seconds...";
-      let time = 20;
+      message.textContent = "⏳ Ad clicked! Please wait 10 seconds...";
+      let time = 10;
       countdown.textContent = `⏱ ${time}s`;
 
       const timer = setInterval(() => {
