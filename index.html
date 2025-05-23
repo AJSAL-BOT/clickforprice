@@ -69,8 +69,8 @@
 </head>
 <body>
   <div class="container">
-    <h1>🔐 Please Click on the Ad Below to Unlock the Link</h1>
-    <p style="color: #ccc;">(Click once anywhere inside the box below)</p>
+    <h1>🔐 Please Click on the Ad Below to Unlock the webintoapp Link</h1>
+    <p style="color: #ccc;">(Click once anywhere inside the ad box below for getting link)</p>
 
     <div class="ad-box" id="adArea">
       <!-- Your ad script -->
@@ -94,8 +94,8 @@
       if (clicked) return;
       clicked = true;
       adArea.style.pointerEvents = 'none'; // disable further clicks
-      message.textContent = "⏳ Ad clicked! Please wait 20 seconds...";
-      let time = 20;
+      message.textContent = "⏳ Ad clicked! Please wait 10 seconds...";
+      let time = 10;
       countdown.textContent = `⏱ ${time}s`;
 
       const timer = setInterval(() => {
