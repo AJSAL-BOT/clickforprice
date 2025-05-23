@@ -32,9 +32,7 @@
       border: 3px dashed yellow;
       padding: 20px;
       border-radius: 10px;
-      font-size: 18px;
       margin: 20px 0;
-      color: orange;
       cursor: pointer;
     }
 
@@ -65,30 +63,24 @@
       cursor: pointer;
       font-weight: bold;
     }
+
+    #adWrapper {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🔐 Please Click on the Ad Below to Unlock the webintoapp Link</h1>
-    <p style="color: #ccc;">(Click once anywhere inside the ad box below for getting link)</p>
+    <h1>🔐 Please wait for the ad to load and click it to continue</h1>
+    <p style="color: #ccc;">Ad is loading... Please wait</p>
 
-    <div class="ad-box" id="adArea">
-      <!-- Your ad script -->
-     <script type="text/javascript">
-	atOptions = {
-		'key' : '12bb67d075c3fc49bb50ec9aa63842e6',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/12bb67d075c3fc49bb50ec9aa63842e6/invoke.js"></script>
+    <!-- AD WRAPPER: hidden by default -->
+    <div id="adWrapper">
+      <div class="ad-box" id="adArea">
+        <!-- Your Ad Code -->
+        <div id="adScriptContainer"></div>
+      </div>
     </div>
-
-    <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
-<div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
-
 
     <div id="countdown"></div>
     <div id="message"></div>
@@ -96,6 +88,36 @@
   </div>
 
   <script>
+    // Insert ad script dynamically and wait for iframe to load
+    const adScriptContainer = document.getElementById('adScriptContainer');
+    const adWrapper = document.getElementById('adWrapper');
+
+    // Setup ad variables
+    const adOptions = {
+      key: '12bb67d075c3fc49bb50ec9aa63842e6',
+      format: 'iframe',
+      height: 90,
+      width: 728,
+      params: {}
+    };
+
+    // Inject ad script
+    const script = document.createElement('script');
+    script.src = "//www.highperformanceformat.com/12bb67d075c3fc49bb50ec9aa63842e6/invoke.js";
+    script.type = "text/javascript";
+    script.async = true;
+    adScriptContainer.appendChild(script);
+
+    // Wait for iframe to appear
+    const waitForIframe = setInterval(() => {
+      const iframe = adScriptContainer.querySelector('iframe');
+      if (iframe) {
+        clearInterval(waitForIframe);
+        adWrapper.style.display = "block";
+      }
+    }, 500);
+
+    // Unlock system
     let clicked = false;
     const adArea = document.getElementById('adArea');
     const countdown = document.getElementById('countdown');
@@ -105,9 +127,9 @@
     adArea.addEventListener('click', () => {
       if (clicked) return;
       clicked = true;
-      adArea.style.pointerEvents = 'none'; // disable further clicks
-      message.textContent = "⏳ Ad clicked! Please wait 10 seconds...";
-      let time = 10;
+      adArea.style.pointerEvents = 'none';
+      message.textContent = "⏳ Ad clicked! Please wait 20 seconds...";
+      let time = 20;
       countdown.textContent = `⏱ ${time}s`;
 
       const timer = setInterval(() => {
