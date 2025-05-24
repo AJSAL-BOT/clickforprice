@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wait & Continue</title>
+  <title>Click Ad to Unlock</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -71,13 +71,13 @@
 </head>
 <body>
   <div class="container">
-    <h1>🔐 Please wait for the ad to load and click it to continue</h1>
-    <p style="color: #ccc;">Ad is loading... Please wait</p>
+    <h1>🟡 Click on the ad below and wait 20 seconds to continue</h1>
+    <p style="color: #ccc;">(Please wait for the ad to load...)</p>
 
-    <!-- AD WRAPPER (Hidden by default) -->
+    <!-- AD WRAPPER -->
     <div id="adWrapper">
       <div class="ad-box" id="adArea">
-        <!-- ProfitablerateCPM Ad -->
+        <!-- PROFITABLERATE CPM AD SCRIPT -->
         <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
         <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
       </div>
@@ -85,18 +85,17 @@
 
     <div id="countdown"></div>
     <div id="message"></div>
-    <button id="continueBtn">👉 Continue</button>
+    <button id="continueBtn">✅ Continue</button>
   </div>
 
   <script>
     const adWrapper = document.getElementById('adWrapper');
     const adContainerId = 'container-efa186d0dc7575a8f0e319dcffebcfc4';
 
-    // Check if ad iframe appears inside container
+    // Show ad box only after ad iframe loads
     const waitForAdIframe = setInterval(() => {
       const adContainer = document.getElementById(adContainerId);
-      const iframe = adContainer?.querySelector('iframe');
-      if (iframe) {
+      if (adContainer && adContainer.querySelector('iframe')) {
         clearInterval(waitForAdIframe);
         adWrapper.style.display = "block";
       }
@@ -112,8 +111,8 @@
       if (clicked) return;
       clicked = true;
       adArea.style.pointerEvents = 'none';
-      message.textContent = "⏳ Ad clicked! Please wait 10 seconds...";
-      let time = 10;
+      message.textContent = "⏳ Ad clicked! Please wait 20 seconds...";
+      let time = 20;
       countdown.textContent = `⏱ ${time}s`;
 
       const timer = setInterval(() => {
