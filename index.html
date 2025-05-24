@@ -24,32 +24,17 @@
 
     .ad-box {
       margin: 25px 0;
-      padding: 20px;
-      border-radius: 12px;
       border: 3px dashed #ffaa00;
-      background-color: rgba(255, 255, 0, 0.1);
-      position: relative;
+      border-radius: 12px;
       opacity: 0.5;
       pointer-events: none;
       transition: all 0.5s ease;
+      display: inline-block;
     }
 
     .ad-box.active {
       opacity: 1;
       pointer-events: auto;
-    }
-
-    .ad-loading-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      border-radius: 10px;
-      z-index: 2;
     }
 
     #countdown {
@@ -77,8 +62,6 @@
     <h2>🟡 Click the ad below and wait 20 seconds</h2>
     
     <div class="ad-box" id="adBox">
-      <div class="ad-loading-overlay" id="overlay">🔄 Ad is loading, please wait...</div>
-
       <!-- Your ad script -->
       <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
       <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
@@ -90,22 +73,19 @@
 
   <script>
     const adBox = document.getElementById('adBox');
-    const overlay = document.getElementById('overlay');
     const continueBtn = document.getElementById('continueBtn');
     const countdown = document.getElementById('countdown');
     const container = document.getElementById('container-efa186d0dc7575a8f0e319dcffebcfc4');
 
     let adClicked = false;
 
-    // Monitor ad container for iframe
     const observer = new MutationObserver(() => {
       const iframe = container.querySelector('iframe');
       if (iframe) {
-        overlay.style.display = 'none';
         adBox.classList.add('active');
-        observer.disconnect(); // Stop observing
+        observer.disconnect();
 
-        // Click protection
+        // Start timer on click
         adBox.addEventListener('click', () => {
           if (adClicked) return;
           adClicked = true;
