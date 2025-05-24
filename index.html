@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Click Ad to Unlock</title>
+  <title>Ad Protected Continue Page</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0d1117;
+      background: #0d1117;
       color: white;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      padding: 30px;
+      padding: 40px;
     }
 
     .container {
@@ -19,36 +19,36 @@
       background: #161b22;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,123,255,0.2);
-    }
-
-    h1 {
-      font-size: 26px;
-      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
     }
 
     .ad-box {
-      background: #222;
-      border: 3px dashed yellow;
+      margin: 25px 0;
       padding: 20px;
-      border-radius: 10px;
-      margin: 20px 0;
-      cursor: pointer;
+      border-radius: 12px;
+      border: 3px dashed #ffaa00;
+      background-color: rgba(255, 255, 0, 0.1);
+      position: relative;
+      transition: all 0.5s ease;
     }
 
-    .ad-box:hover {
-      background-color: #333;
+    .ad-loading-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      border-radius: 10px;
+      z-index: 2;
     }
 
     #countdown {
-      font-size: 24px;
+      font-size: 22px;
       color: #00ffff;
       margin-top: 20px;
-    }
-
-    #message {
-      margin-top: 20px;
-      font-size: 20px;
     }
 
     #continueBtn {
@@ -63,69 +63,60 @@
       cursor: pointer;
       font-weight: bold;
     }
-
-    #adWrapper {
-      display: none;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🟡 Click on the ad below and wait 20 seconds to continue</h1>
-    <p style="color: #ccc;">(Please wait for the ad to load...)</p>
+    <h2>🟡 Click the ad below and wait 20 seconds</h2>
+    
+    <div class="ad-box" id="adBox">
+      <div class="ad-loading-overlay" id="overlay">🔄 Ad is loading, please wait...</div>
 
-    <!-- AD WRAPPER -->
-    <div id="adWrapper">
-      <div class="ad-box" id="adArea">
-        <!-- PROFITABLERATE CPM AD SCRIPT -->
-        <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
-        <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
-      </div>
+      <!-- Your ad script here -->
+      <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
+      <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
     </div>
 
     <div id="countdown"></div>
-    <div id="message"></div>
     <button id="continueBtn">✅ Continue</button>
   </div>
 
   <script>
-    const adWrapper = document.getElementById('adWrapper');
-    const adContainerId = 'container-efa186d0dc7575a8f0e319dcffebcfc4';
+    const adBox = document.getElementById('adBox');
+    const overlay = document.getElementById('overlay');
+    const continueBtn = document.getElementById('continueBtn');
+    const countdown = document.getElementById('countdown');
 
-    // Show ad box only after ad iframe loads
-    const waitForAdIframe = setInterval(() => {
-      const adContainer = document.getElementById(adContainerId);
-      if (adContainer && adContainer.querySelector('iframe')) {
-        clearInterval(waitForAdIframe);
-        adWrapper.style.display = "block";
+    let adClicked = false;
+
+    // Check if ad iframe is loaded
+    const checkAdLoaded = setInterval(() => {
+      const adFrame = document.querySelector('#container-efa186d0dc7575a8f0e319dcffebcfc4 iframe');
+      if (adFrame) {
+        clearInterval(checkAdLoaded);
+        overlay.style.display = 'none';
+        adBox.style.backgroundColor = 'transparent';
+
+        // Allow click to start timer
+        adBox.addEventListener('click', () => {
+          if (adClicked) return;
+          adClicked = true;
+
+          let timeLeft = 20;
+          countdown.textContent = `⏱ Wait ${timeLeft}s...`;
+
+          const timer = setInterval(() => {
+            timeLeft--;
+            countdown.textContent = `⏱ Wait ${timeLeft}s...`;
+            if (timeLeft <= 0) {
+              clearInterval(timer);
+              countdown.textContent = "✅ You can continue now!";
+              continueBtn.style.display = 'inline-block';
+            }
+          }, 1000);
+        });
       }
     }, 500);
-
-    let clicked = false;
-    const adArea = document.getElementById('adArea');
-    const countdown = document.getElementById('countdown');
-    const message = document.getElementById('message');
-    const continueBtn = document.getElementById('continueBtn');
-
-    adArea.addEventListener('click', () => {
-      if (clicked) return;
-      clicked = true;
-      adArea.style.pointerEvents = 'none';
-      message.textContent = "⏳ Ad clicked! Please wait 20 seconds...";
-      let time = 20;
-      countdown.textContent = `⏱ ${time}s`;
-
-      const timer = setInterval(() => {
-        time--;
-        countdown.textContent = `⏱ ${time}s`;
-        if (time <= 0) {
-          clearInterval(timer);
-          countdown.textContent = "";
-          message.textContent = "✅ You may continue now!";
-          continueBtn.style.display = 'inline-block';
-        }
-      }, 1000);
-    });
 
     continueBtn.addEventListener('click', () => {
       window.location.href = "https://www.webintoapp.com/app-maker";
