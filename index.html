@@ -22,13 +22,25 @@
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
     }
 
-    .ad-box {
-      margin: 25px 0;
+    .ad-wrapper {
+      position: relative;
+      display: inline-block;
       border: 3px dashed #ffaa00;
       border-radius: 12px;
-      padding: 0;
-      display: inline-block;
-      background: #161b22;
+      overflow: hidden;
+      width: 100%;
+      max-width: 728px;
+      height: 90px;
+      margin: 20px auto;
+    }
+
+    .ad-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      cursor: pointer;
     }
 
     #countdown {
@@ -54,9 +66,12 @@
 <body>
   <div class="container">
     <h2>🟡 Click the ad below and wait 20 seconds</h2>
-    
-    <div class="ad-box" id="adBox">
-      <!-- Ad Script -->
+
+    <div class="ad-wrapper">
+      <!-- Clickable Overlay -->
+      <div class="ad-overlay" id="clickOverlay"></div>
+
+      <!-- Your Ad -->
       <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
       <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
     </div>
@@ -66,15 +81,16 @@
   </div>
 
   <script>
-    const adBox = document.getElementById('adBox');
+    const overlay = document.getElementById('clickOverlay');
     const countdown = document.getElementById('countdown');
     const continueBtn = document.getElementById('continueBtn');
 
-    let adClicked = false;
+    let clicked = false;
 
-    adBox.addEventListener('click', () => {
-      if (adClicked) return;
-      adClicked = true;
+    overlay.addEventListener('click', () => {
+      if (clicked) return;
+      clicked = true;
+      overlay.style.display = "none"; // Hide overlay after 1 click
 
       let timeLeft = 20;
       countdown.textContent = `⏱ Wait ${timeLeft}s...`;
