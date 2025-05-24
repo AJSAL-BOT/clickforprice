@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ad Protected Continue Page</title>
+  <title>Ad Protected Page</title>
   <style>
     body {
       background: #0d1117;
@@ -26,13 +26,9 @@
       margin: 25px 0;
       border: 3px dashed #ffaa00;
       border-radius: 12px;
-      pointer-events: none;
-      transition: all 0.5s ease;
+      padding: 0;
       display: inline-block;
-    }
-
-    .ad-box.active {
-      pointer-events: auto;
+      background: #161b22;
     }
 
     #countdown {
@@ -60,7 +56,7 @@
     <h2>🟡 Click the ad below and wait 20 seconds</h2>
     
     <div class="ad-box" id="adBox">
-      <!-- Your ad script -->
+      <!-- Ad Script -->
       <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
       <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
     </div>
@@ -71,40 +67,28 @@
 
   <script>
     const adBox = document.getElementById('adBox');
-    const continueBtn = document.getElementById('continueBtn');
     const countdown = document.getElementById('countdown');
-    const container = document.getElementById('container-efa186d0dc7575a8f0e319dcffebcfc4');
+    const continueBtn = document.getElementById('continueBtn');
 
     let adClicked = false;
 
-    const observer = new MutationObserver(() => {
-      const iframe = container.querySelector('iframe');
-      if (iframe) {
-        adBox.classList.add('active');
-        observer.disconnect();
+    adBox.addEventListener('click', () => {
+      if (adClicked) return;
+      adClicked = true;
 
-        // Start timer on click
-        adBox.addEventListener('click', () => {
-          if (adClicked) return;
-          adClicked = true;
+      let timeLeft = 20;
+      countdown.textContent = `⏱ Wait ${timeLeft}s...`;
 
-          let timeLeft = 20;
-          countdown.textContent = `⏱ Wait ${timeLeft}s...`;
-
-          const timer = setInterval(() => {
-            timeLeft--;
-            countdown.textContent = `⏱ Wait ${timeLeft}s...`;
-            if (timeLeft <= 0) {
-              clearInterval(timer);
-              countdown.textContent = "✅ You can continue now!";
-              continueBtn.style.display = 'inline-block';
-            }
-          }, 1000);
-        });
-      }
+      const timer = setInterval(() => {
+        timeLeft--;
+        countdown.textContent = `⏱ Wait ${timeLeft}s...`;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          countdown.textContent = "✅ You can continue now!";
+          continueBtn.style.display = 'inline-block';
+        }
+      }, 1000);
     });
-
-    observer.observe(container, { childList: true, subtree: true });
 
     continueBtn.addEventListener('click', () => {
       window.location.href = "https://www.webintoapp.com/app-maker";
