@@ -23,24 +23,19 @@
     }
 
     .ad-wrapper {
-      position: relative;
-      display: inline-block;
       border: 3px dashed #ffaa00;
       border-radius: 12px;
       overflow: hidden;
+      margin: 20px auto;
       width: 100%;
       max-width: 728px;
-      height: 90px;
-      margin: 20px auto;
+      min-height: 90px; /* use min-height instead of fixed height */
     }
 
-    .ad-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-      cursor: pointer;
+    #container-efa186d0dc7575a8f0e319dcffebcfc4 {
+      width: 100% !important;
+      height: auto !important;
+      display: block;
     }
 
     #countdown {
@@ -65,13 +60,10 @@
 </head>
 <body>
   <div class="container">
-    <h2>🟡 Click the ad below and wait 20 seconds</h2>
+    <h2>🔗 Click the on the ad below and wait 10 seconds</h2>
+    <h5>⚠️click on a ad and wait then come to this website for get link of the webintoapp⚠️</h5>
 
     <div class="ad-wrapper">
-      <!-- Clickable Overlay -->
-      <div class="ad-overlay" id="clickOverlay"></div>
-
-      <!-- Your Ad -->
       <script async="async" data-cfasync="false" src="//pl26722894.profitableratecpm.com/efa186d0dc7575a8f0e319dcffebcfc4/invoke.js"></script>
       <div id="container-efa186d0dc7575a8f0e319dcffebcfc4"></div>
     </div>
@@ -81,18 +73,15 @@
   </div>
 
   <script>
-    const overlay = document.getElementById('clickOverlay');
     const countdown = document.getElementById('countdown');
     const continueBtn = document.getElementById('continueBtn');
+    let timerStarted = false;
 
-    let clicked = false;
+    window.addEventListener('blur', () => {
+      if (timerStarted) return;
+      timerStarted = true;
 
-    overlay.addEventListener('click', () => {
-      if (clicked) return;
-      clicked = true;
-      overlay.style.display = "none"; // Hide overlay after 1 click
-
-      let timeLeft = 20;
+      let timeLeft = 10;
       countdown.textContent = `⏱ Wait ${timeLeft}s...`;
 
       const timer = setInterval(() => {
